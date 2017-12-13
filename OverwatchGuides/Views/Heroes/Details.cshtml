@@ -90,71 +90,77 @@
 <br />
 <br />
 <br />
+@{
+    if (User.Identity.IsAuthenticated)
+    {
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="create">
 
-<div class="row">
-    <div class="col-md-3"></div>
-    <div class="col-md-6">
-        <div class="create">
-            <form>
-                <div class="form-group">
-                    <label for="comment" class="big-noodle">Comments</label>
-                    <input type="text" class="form-control" id="comment" placeholder="New Comment">
+                    @using (Html.BeginForm("PostComment", "Heroes", FormMethod.Post))
+                    {
+                        <form>
+                            <div class="form-group">
+                                <label for="comment" class="big-noodle">Comments</label>
+                                @Html.TextBox("Body", null, new { @placeholder = "Add a comment...", @class = "form-control" })
+                                <br />
+                                @Html.Hidden("HeroCode", Model.HeroCode)
+                                <input type="submit" value="Submit" class="btn btn-default pull-right" />
+                            </div>
+                        </form>
+                    }
                 </div>
-                <button type="submit" class="btn btn-default pull-right">Submit</button>
-            </form>
-        </div>
-    </div>
-    <div class="col-md-3"></div>
-</div>
 
-<br />
-<br />
+        
+            </div>
+            </div>
+        <br />
+        <br />
 
-@* For future partial view *@
-<div class="row">
-    <div class="col-md-3"></div>
-    <div class="col-md-6">
-        <div class="panel-group">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title big-noodle">
-                        <a data-toggle="collapse" href="#collapse1">New User 1</a>
-                    </h4>
-                </div>
-                <div id="collapse1" class="panel-collapse collapse in">
-                    <div class="panel-body">
-                        <p>Great information! Thanks for all of your hardwork.</p>
+        int i = 0;
+        
+        foreach(var comment in ViewBag.Comments)
+        {
+            <div class="row">
+                <div class="col-md-3"></div>
 
-                        <div class="panel-group">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title big-noodle">
-                                        <a data-toggle="collapse" href="#collapse2">Reply</a>
-                                    </h4>
-                                </div>
-                                <div id="collapse2" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        <form>
-                                            <div class="form-group">
-                                                <label for="comment" class="big-noodle">Reply</label>
-                                                <input type="text" class="form-control" id="comment" placeholder="Reply">
-                                            </div>
-                                            <button type="submit" class="btn btn-default pull-right">Reply</button>
-                                        </form>
-                                    </div>
+                <div class="col-md-6">
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title big-noodle">
+                                    <a data-toggle="collapse" href="#@i">@comment.UserEmail</a>
+                                </h4>
+                            </div>
+                            <div id="@i" class="panel-collapse">
+                                <div class="panel-body">
+                                    <p>@comment.Comment</p>
+                                    <br />
+                                        <p>@comment.ReplyCommentBody</p>
+
+                                        @using (Html.BeginForm("PostReply", "Heroes", FormMethod.Post))
+                                        {
+                                            <form>
+                                                @Html.Hidden("commentID", (string)comment.HeroCommentID.ToString())
+                                                @Html.Hidden("hero", Model.HeroCode)
+                                                @Html.TextBox("Reply", null, new { @class = "form-control", placeholder = "Reply..." })
+                                                <br />
+                                                <input type="submit" value="Reply" class="btn btn-default pull-right" />
+                                            </form>
+                                        }
                                 </div>
                             </div>
                         </div>
-
-
-
-
-
                     </div>
                 </div>
+
+                <div class="col-md-3"></div>
             </div>
-        </div>
-    </div>
-    <div class="col-md-3"></div>
-</div>
+            <br />
+            i++;
+        }
+    }
+}
+
 

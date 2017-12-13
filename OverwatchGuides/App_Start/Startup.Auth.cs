@@ -58,11 +58,11 @@ namespace OverwatchGuides
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "175608590305-ghp7kkc4bkrsfet3dr0chhpulg7g1go8.apps.googleusercontent.com",
+                ClientSecret = "GN9sMzmDN2lORF8on9Rsl4pC"
+            });
         }
     }
 }

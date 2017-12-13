@@ -13,5 +13,7 @@ namespace OverwatchGuides.DAL
 
 
         public DbSet<Hero> Heroes { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<HeroComment> HeroComments { get; set; }
     }
 }

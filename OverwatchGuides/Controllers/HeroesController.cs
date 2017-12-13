@@ -136,7 +136,68 @@ namespace Project_1_Overwatch.Controllers
             ViewBag.name = hero.HeroName;
             ViewBag.categoryImage = categoryImgPath;
 
+            // GET ALL COMMENTS FOR THIS HERO
+            List<HeroComment> allComments = new List<HeroComment>();
+            allComments = db.HeroComments.ToList();
+
+            List<HeroComment> heroCommentList = new List<HeroComment>();
+            foreach (HeroComment hc in allComments)
+            {
+                if (hc.HeroCode == id /* && hc.ParentComment == null uncomment when ready for linked list comments*/)
+                {
+                    heroCommentList.Add(hc);
+                }
+            }
+
+            ViewBag.Comments = heroCommentList;
+
             return View(hero);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult PostComment(FormCollection form)
+        {
+            String comment = form["Body"];
+            String hero = form["HeroCode"];
+
+            HeroComment heroComment = new HeroComment();
+
+            heroComment.Comment = comment;
+            heroComment.UserEmail = User.Identity.Name;
+            heroComment.HeroCode = hero;
+
+            db.HeroComments.Add(heroComment);
+            db.SaveChanges();
+
+            return RedirectToAction("Details", new { id = hero });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult PostReply(FormCollection form)
+        {
+            String reply = form["Reply"];
+            int commentID = Int32.Parse(form["commentID"]);
+            String hero = form["hero"];
+
+            HeroComment heroComment = db.HeroComments.Find(commentID);
+
+            heroComment.ReplyCommentBody = reply;
+
+            /* Uncomment to implement linked list comments
+            HeroComment heroComment = new HeroComment();
+
+            heroComment.Comment = reply;
+            heroComment.UserEmail = User.Identity.Name;
+            heroComment.HeroCode = hero;
+            heroComment.ParentComment = commentID;
+            */
+
+            db.Entry(heroComment).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("Details", new { id = hero });
         }
 
         // GET: Heroes/Create

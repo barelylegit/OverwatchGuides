@@ -13,8 +13,9 @@ namespace OverwatchGuides.Models
         [Key]
         public int HeroCommentID { get; set; }
         public String HeroCode { get; set; }
-        public int UserID { get; set; }
+        public String UserEmail { get; set; }
         public String Comment { get; set; }
-        public int ParentComment { get; set; }
+        public int? ParentComment { get; set; }
+        public String ReplyCommentBody { get; set; }
     }
 }
