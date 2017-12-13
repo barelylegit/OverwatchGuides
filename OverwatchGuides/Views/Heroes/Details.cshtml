@@ -137,6 +137,7 @@
                                 <div class="panel-body">
                                     <p>@comment.Comment</p>
                                     <br />
+                                    <div class="col-md-11 col-md-offset-1">
                                         <p>@comment.ReplyCommentBody</p>
 
                                         @using (Html.BeginForm("PostReply", "Heroes", FormMethod.Post))
@@ -149,6 +150,7 @@
                                                 <input type="submit" value="Reply" class="btn btn-default pull-right" />
                                             </form>
                                         }
+                                    </div>
                                 </div>
                             </div>
                         </div>
