@@ -1,0 +1,160 @@
+﻿@model OverwatchGuides.Models.Hero
+
+<div>
+    <ul class="breadcrumb pull-left">
+        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+        <li>@Html.ActionLink("Heroes", "Index", "Heroes")</li>
+        <li>@ViewBag.name</li>
+    </ul>
+</div>
+
+<div class="jumbotron text-center">
+    <h1 class="big-noodle">@Html.DisplayFor(model => model.HeroName)</h1>
+    <h3 class="big-noodle"><img height="25px" width="25px" src="@ViewBag.categoryImage" />@Html.DisplayFor(model => model.Category)</h3>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            @* gets the url image path from the database to display the hero image *@
+            <img height="300px" width="auto" src="@Url.Content(Model.Image)" />
+        </div>
+        <div class="col-md-3">
+            <h3 class="big-noodle">Strengths</h3>
+            <ul>
+                @* dispays the strings contained in the array on the view *@
+                @foreach (String strength in ViewBag.strengthsArray)
+                {
+                    <li>@strength</li>
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h3 class="big-noodle">Counters</h3>
+            <ul>
+                @* dispays the strings contained in the array on the view *@
+                @foreach (String counters in ViewBag.countersArray)
+                {
+                    <li>@counters</li>
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h3 class="big-noodle">Hero Synergy</h3>
+            <ul>
+                @* dispays the strings contained in the array on the view *@
+                @foreach (String synergy in ViewBag.synergyArray)
+                {
+                    <li>@synergy</li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-3">
+            <h3 class="big-noodle">Weaknesses</h3>
+            <ul>
+                @* dispays the strings contained in the array on the view *@
+                @foreach (String weakness in ViewBag.weaknessesArray)
+                {
+                    <li>@weakness</li>
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h3 class="big-noodle">Countered By</h3>
+            <ul>
+                @* dispays the strings contained in the array on the view *@
+                @foreach (String counteredby in ViewBag.counteredbyArray)
+                {
+                    <li>@counteredby</li>
+                }
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h3 class="big-noodle">Hero Discord</h3>
+            <ul>
+                @* dispays the strings contained in the array on the view *@
+                @foreach (String discord in ViewBag.discordArray)
+                {
+                    <li>@discord</li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+<br />
+
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div class="create">
+            <form>
+                <div class="form-group">
+                    <label for="comment" class="big-noodle">Comments</label>
+                    <input type="text" class="form-control" id="comment" placeholder="New Comment">
+                </div>
+                <button type="submit" class="btn btn-default pull-right">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+
+<br />
+<br />
+
+@* For future partial view *@
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title big-noodle">
+                        <a data-toggle="collapse" href="#collapse1">New User 1</a>
+                    </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <p>Great information! Thanks for all of your hardwork.</p>
+
+                        <div class="panel-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title big-noodle">
+                                        <a data-toggle="collapse" href="#collapse2">Reply</a>
+                                    </h4>
+                                </div>
+                                <div id="collapse2" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <label for="comment" class="big-noodle">Reply</label>
+                                                <input type="text" class="form-control" id="comment" placeholder="Reply">
+                                            </div>
+                                            <button type="submit" class="btn btn-default pull-right">Reply</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+
